@@ -1,0 +1,10 @@
+C:\Users\SAKSHI SHARMA\source\repos\plot_time_vs_qi\bin\Debug\plot_time_vs_qi.exe.config
+C:\Users\SAKSHI SHARMA\source\repos\plot_time_vs_qi\bin\Debug\plot_time_vs_qi.exe
+C:\Users\SAKSHI SHARMA\source\repos\plot_time_vs_qi\bin\Debug\plot_time_vs_qi.pdb
+C:\Users\SAKSHI SHARMA\source\repos\plot_time_vs_qi\obj\Debug\plot_time_vs_qi.csproj.AssemblyReference.cache
+C:\Users\SAKSHI SHARMA\source\repos\plot_time_vs_qi\obj\Debug\plot_time_vs_qi.Form1.resources
+C:\Users\SAKSHI SHARMA\source\repos\plot_time_vs_qi\obj\Debug\plot_time_vs_qi.Properties.Resources.resources
+C:\Users\SAKSHI SHARMA\source\repos\plot_time_vs_qi\obj\Debug\plot_time_vs_qi.csproj.GenerateResource.cache
+C:\Users\SAKSHI SHARMA\source\repos\plot_time_vs_qi\obj\Debug\plot_time_vs_qi.csproj.CoreCompileInputs.cache
+C:\Users\SAKSHI SHARMA\source\repos\plot_time_vs_qi\obj\Debug\plot_time_vs_qi.exe
+C:\Users\SAKSHI SHARMA\source\repos\plot_time_vs_qi\obj\Debug\plot_time_vs_qi.pdb
