@@ -1,0 +1,250 @@
+﻿<Window x:Class="Redysim_trial.MainWindow"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Redysim_trial"
+        xmlns:oxy="http://oxyplot.org/wpf"
+        mc:Ignorable="d"
+        Title="Redysim" Height="740" Width="1200">
+    <Window.Icon>
+        <BitmapImage UriSource="robotic_arm_robots_industry.ico"/>
+    </Window.Icon>
+    <Grid>
+        <!-- Define Row Definitions -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" MinHeight="526.96" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <!-- Panels Section -->
+        <Grid Grid.Row="1" Margin="10,8,10,19">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="300" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Left Side Empty Space -->
+            <Grid Grid.Column="0">
+                <TabControl BorderBrush="#FF050000" Background="#FFF9F9F9">
+                    <TabItem Header="Animation" Margin="-2,-2,-2,0">
+                        <Grid x:Name="AnimationPanel" Height="472" VerticalAlignment="Center">
+                            <Label Content="Animation" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                            <!-- Animation Panel Content -->
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Graph">
+                        <Grid x:Name="Graphpanel" Height="472" VerticalAlignment="Center">
+                            <oxy:PlotView x:Name="plotView" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MouseLeftButtonUp="PlotView_MouseLeftButtonUp"/>
+                            <!-- Graphpanel Panel Content -->
+                        </Grid>
+                    </TabItem>
+                </TabControl>
+            </Grid>
+
+            <!-- Right Side for Panels -->
+            <Grid Grid.Column="1">
+                <TabControl BorderBrush="#FF050000" Background="#FFF9F9F9">
+                    <TabItem Header="Analysis">
+                        <Grid x:Name="AnalysisPanel" Height="472" VerticalAlignment="Center">
+                            <Label Content="Analysis" HorizontalAlignment="Center" VerticalAlignment="Top" Width="294" BorderBrush="Black" BorderThickness="1" HorizontalContentAlignment="Center" Height="29"/>
+                            <Label Content="Time" HorizontalAlignment="Left" Margin="209,29,0,0" VerticalAlignment="Top" Height="25"/>
+                            <xctk:DecimalUpDown x:Name="Time_spinner" HorizontalAlignment="Left" Margin="180,54,0,0" VerticalAlignment="Top" Width="94" Minimum="0" Increment="0.05" Value="0"/>
+                            <Label Content="Step Size" HorizontalAlignment="Left" Margin="198,74,0,0" VerticalAlignment="Top"/>
+                            <xctk:DecimalUpDown x:Name="Step_spinner" HorizontalAlignment="Left" Margin="180,101,0,0" VerticalAlignment="Top" Width="94" Minimum="0" Increment="0.01" Value="0"/>
+                            <Button Content="InvDyn" HorizontalAlignment="Left" Margin="93,54,0,0" VerticalAlignment="Top" Height="20" Width="65" Click="InvDyn_Click"/>
+                            <Menu Margin="10,54,219,397" Height="21" Width="65" BorderBrush="Black" BorderThickness="1">
+                                <MenuItem x:Name="FDyn_Menu" Height="20" Width="64" Header="FDyn">
+                                    <MenuItem Header="Free"></MenuItem>
+                                    <MenuItem Header="Forced"></MenuItem>
+                                </MenuItem>
+                            </Menu>
+                            <Label Content="Gravity" HorizontalAlignment="Center" Height="26" Width="294" HorizontalContentAlignment="Center" VerticalAlignment="Top" BorderBrush="Black" BorderThickness="1" Margin="0,147,0,0"/>
+                            <DataGrid x:Name="GravityTable" AutoGenerateColumns="False" BorderBrush="Black" HorizontalScrollBarVisibility="Auto" Margin="0,173,0,255" VerticalScrollBarVisibility="Disabled" Height="43" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="gx" Binding="{Binding gx}" Width="*"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="gy" Binding="{Binding gy}" Width="*"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="gz" Binding="{Binding gz}" Width="*"></DataGridTextColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <Menu Height="21" Width="65" BorderBrush="Black" BorderThickness="1" Margin="10,237,219,214">
+                                <MenuItem Header="Trajectory" Width="65" Height="20">
+                                    <MenuItem Header="Cycloidal"></MenuItem>
+                                    <MenuItem Header="Cubic"></MenuItem>
+                                </MenuItem>
+                            </Menu>
+                            <Label Content="Animation" HorizontalAlignment="Center" Height="26" Width="294" HorizontalContentAlignment="Center" VerticalAlignment="Top" BorderBrush="Black" BorderThickness="1" Margin="0,332,0,0"/>
+                            <Button Content="3D" HorizontalAlignment="Left" Margin="48,376,0,0" VerticalAlignment="Top" Height="20" Width="66"/>
+                            <Button Content="ZX" HorizontalAlignment="Left" Margin="184,424,0,0" VerticalAlignment="Top" Height="20" Width="65"/>
+                            <Button Content="YZ" HorizontalAlignment="Left" Margin="184,376,0,0" VerticalAlignment="Top" Height="20" Width="65"/>
+                            <Button Content="XY" HorizontalAlignment="Left" Margin="48,424,0,0" VerticalAlignment="Top" Height="20" Width="66"/>
+                            <DataGrid x:Name="Force"  AutoGenerateColumns="False" BorderBrush="Black" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Disabled" Margin="154,237,12,192" Width="128" Height="43" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Applied Force/Torque" Binding="{Binding Force}" ></DataGridTextColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <!-- Analysis Panel Content -->
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Graph" HorizontalAlignment="Left" Margin="-2,-2,0,0" Width="49">
+                        <Grid x:Name="GraphPanel">
+                            <ComboBox x:Name="J1" Text="Joint 1" Background="White" Height="30" Width="135" Margin="6,22,153,333" VerticalAlignment="Top" Visibility="Collapsed">
+                                <StackPanel>
+                                    <CheckBox x:Name="j1_position" Content="Joint Position" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" Height="17" Width="120"/>
+                                    <CheckBox x:Name="j1_velocity" Content="Joint Velocity" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" Height="17" Width="120"/>
+                                    <CheckBox x:Name="j1_acceleration" Content="Joint Acceleration" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" Height="17" Width="120"/>
+                                    <CheckBox x:Name="j1_force" Content="Joint Force/Torque" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" Height="17" Width="120"/>
+                                </StackPanel>
+                            </ComboBox>
+                            <ComboBox x:Name="J2" Text="Joint 2" Background="White" Height="30" Width="135" Margin="153,22,6,333" VerticalAlignment="Top" Visibility="Collapsed">
+                                <StackPanel>
+                                    <CheckBox x:Name="j2_position" Content="Joint Position" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" Height="17" Width="120"/>
+                                    <CheckBox x:Name="j2_velocity" Content="Joint Velocity" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" Height="17" Width="120"/>
+                                    <CheckBox x:Name="j2_acceleration" Content="Joint Acceleration" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" Height="17" Width="120"/>
+                                    <CheckBox x:Name="j2_force" Content="Joint Force/Torque" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" Height="17" Width="120"/>
+                                </StackPanel>
+                            </ComboBox>
+                            <ComboBox x:Name="J3" Text="Joint 3" Background="White" Height="30" Width="135" Margin="6,86,153,269" VerticalAlignment="Top" Visibility="Collapsed">
+                                <StackPanel>
+                                    <CheckBox x:Name="j3_position" Content="Joint Position" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" Height="17" Width="120"/>
+                                    <CheckBox x:Name="j3_velocity" Content="Joint Velocity" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" Height="17" Width="120"/>
+                                    <CheckBox x:Name="j3_acceleration" Content="Joint Acceleration" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" Height="17" Width="120"/>
+                                    <CheckBox x:Name="j3_force" Content="Joint Force/Torque" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" Height="17" Width="120"/>
+                                </StackPanel>
+                            </ComboBox>
+                            <ComboBox x:Name="J4" Text="Joint 4" Background="White" Height="30" Width="135" Margin="153,86,6,269" VerticalAlignment="Top" Visibility="Collapsed">
+                                <StackPanel>
+                                    <CheckBox x:Name="j4_position" Content="Joint Position" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" Height="17" Width="120"/>
+                                    <CheckBox x:Name="j4_velocity" Content="Joint Velocity" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" Height="17" Width="120"/>
+                                    <CheckBox x:Name="j4_acceleration" Content="Joint Acceleration" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" Height="17" Width="120"/>
+                                    <CheckBox x:Name="j4_force" Content="Joint Force/Torque" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" Height="17" Width="120"/>
+                                </StackPanel>
+                            </ComboBox>
+                            <ComboBox x:Name="J5" Text="Joint 5" Background="White" Height="30" Width="135" Margin="6,150,153,205" VerticalAlignment="Top" Visibility="Collapsed">
+                                <StackPanel>
+                                    <CheckBox x:Name="j5_position" Content="Joint Position" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" Height="17" Width="120"/>
+                                    <CheckBox x:Name="j5_velocity" Content="Joint Velocity" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" Height="17" Width="120"/>
+                                    <CheckBox x:Name="j5_acceleration" Content="Joint Acceleration" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" Height="17" Width="120"/>
+                                    <CheckBox x:Name="j5_force" Content="Joint Force/Torque" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" Height="17" Width="120"/>
+                                </StackPanel>
+                            </ComboBox>
+                            <ComboBox x:Name="J6" Text="Joint 6" Background="White" Height="30" Width="135" Margin="153,150,6,205" VerticalAlignment="Top" Visibility="Collapsed">
+                                <StackPanel>
+                                    <CheckBox x:Name="j6_position" Content="Joint Position" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" Height="17" Width="120"/>
+                                    <CheckBox x:Name="j6_velocity" Content="Joint Velocity" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" Height="17" Width="120"/>
+                                    <CheckBox x:Name="j6_acceleration" Content="Joint Acceleration" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" Height="17" Width="120"/>
+                                    <CheckBox x:Name="j6_force" Content="Joint Force/Torque" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" Height="17" Width="120"/>
+                                </StackPanel>
+                            </ComboBox>
+                            <Label x:Name="L1" Content="Joint 1" HorizontalAlignment="Left" Margin="6,24,0,0" VerticalAlignment="Top" Width="44" Visibility="Collapsed"/>
+                            <Label x:Name="L2" Content="Joint 2" HorizontalAlignment="Left" Margin="153,24,0,0" VerticalAlignment="Top" Width="44" Visibility="Collapsed"/>
+                            <Label x:Name="L3" Content="Joint 3" HorizontalAlignment="Left" Margin="6,88,0,0" VerticalAlignment="Top" Width="44" Visibility="Collapsed"/>
+                            <Label x:Name="L4" Content="Joint 4" HorizontalAlignment="Left" Margin="153,88,0,0" VerticalAlignment="Top" Width="44" Visibility="Collapsed"/>
+                            <Label x:Name="L5" Content="Joint 6" HorizontalAlignment="Left" Margin="153,152,0,0" VerticalAlignment="Top" Width="44" Visibility="Collapsed"/>
+                            <Label x:Name="L6" Content="Joint 5" HorizontalAlignment="Left" Margin="6,152,0,0" VerticalAlignment="Top" Width="44" Visibility="Collapsed"/>
+                        </Grid>
+                    </TabItem>
+                </TabControl>
+            </Grid>
+        </Grid>
+
+        <!-- Kinematic and Dynamic Properties Label and Border -->
+        <Grid Grid.Row="2" Margin="10,10,10,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="149*"/>
+                <ColumnDefinition Width="111*"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Kinematic and dynamic properties" BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" Height="27" Margin="1,-28,-1,0" Grid.ColumnSpan="2"/>
+        </Grid>
+
+        <!-- Bottom Section containing Menu, Buttons, Labels, and DataGrids -->
+        <Grid Grid.Row="2" Margin="10,10,10,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Left Panel (Menu, Buttons, and Labels) -->
+            <StackPanel Grid.Column="0">
+                <!-- Menu -->
+                <Border BorderBrush="Black" BorderThickness="1">
+                    <Menu>
+                        <MenuItem x:Name="parentmenuitem" Header="Select Robot" Width="147">
+                            <MenuItem Header="RR" Tag="RR.csv" Click="MenuItem_Click"/>
+                            <MenuItem Header="RP" Tag="RP.csv" Click="MenuItem_Click"/>
+                            <MenuItem Header="RRR" Tag="RRR.csv" Click="MenuItem_Click"/>
+                            <MenuItem Header="KUKA" Tag="KUKA.csv" Click="MenuItem_Click"/>
+                            <MenuItem Header="Stanford Arm" Tag="Stanford_arm.csv" Click="MenuItem_Click"></MenuItem>
+                        </MenuItem>
+                    </Menu>
+                </Border>
+
+                <!-- Buttons -->
+                <Border BorderBrush="Black" BorderThickness="1">
+                    <StackPanel Height="60">
+                        <Button x:Name="Load_Button" Content="Load" Width="82" BorderBrush="Black" Click="LoadButton_Click"/>
+                        <Button x:Name="Save_Button" Content="Save" Width="82" BorderBrush="Black" IsEnabled="False" Click="SaveButton_Click"/>
+                        <Button x:Name="ClearSelection_Button" Content="Clear Selection" Width="82" BorderBrush="Black" IsEnabled="False" Click="ClearSelectionButton_Click" />
+                    </StackPanel>
+                </Border>
+
+                <!-- Labels -->
+                <Border BorderBrush="Black" BorderThickness="1" Height="74">
+                    <StackPanel>
+                        <Label Content="r=1 for revolute joint" Height="23.5" FontSize="10"/>
+                        <Label Content="r=0 for Prismatic joint" Height="23.5" FontSize="10"/>
+                        <Label Content="JV=joint variable" Height="23.5" FontSize="10"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+
+            <!-- DataGrids Section -->
+            <Grid Grid.Column="1" Grid.ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- UITablekin DataGrid -->
+                <Border BorderBrush="Black" Grid.Row="0" Grid.Column="0">
+                    <DataGrid x:Name="UITablekin" AutoGenerateColumns="False" BorderBrush="Black" HorizontalScrollBarVisibility="Visible" CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserSortColumns="False" MaxColumnWidth="110" MinColumnWidth="110" ItemsSource="{Binding}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Joint No." Binding="{Binding JointNo}" Width="110" />
+                            <DataGridTextColumn Header="Joint Type" Binding="{Binding JointType}" Width="110" />
+                            <DataGridTextColumn Header="Joint Offset(b)" Binding="{Binding JointOffset}" Width="110" />
+                            <DataGridTextColumn Header="Joint Angle(theta)" Binding="{Binding JointAngle}" Width="110" />
+                            <DataGridTextColumn Header="Link Length(a)" Binding="{Binding LinkLength}" Width="110" />
+                            <DataGridTextColumn Header="Twist Angle(alpha)" Binding="{Binding TwistAngle}" Width="110" />
+                            <DataGridTextColumn Header="JV(initial)" Binding="{Binding JVInitial}" Width="110" />
+                            <DataGridTextColumn Header="JV(final)" Binding="{Binding JVFinal}" Width="110" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Border>
+
+                <!-- UITabledyn DataGrid -->
+                <Border BorderBrush="Black" Grid.Row="0" Grid.Column="1">
+                    <DataGrid x:Name="UITabledyn" AutoGenerateColumns="False" BorderBrush="Black" HorizontalScrollBarVisibility="Visible" CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserSortColumns="False" MaxColumnWidth="90" MinColumnWidth="90" ItemsSource="{Binding}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Mass" Binding="{Binding Mass}" Width="90" />
+                            <DataGridTextColumn Header="Link Length" Binding="{Binding LinkLength1}" Width="90" />
+                            <DataGridTextColumn Header="Actuated Joint" Binding="{Binding ActuatedJoint}" Width="90" />
+                            <DataGridTextColumn Header="bt" Binding="{Binding bt}" Width="90" />
+                            <DataGridTextColumn Header="dx" Binding="{Binding dx}" Width="90" />
+                            <DataGridTextColumn Header="dy" Binding="{Binding dy}" Width="90" />
+                            <DataGridTextColumn Header="dz" Binding="{Binding dz}" Width="90" />
+                            <DataGridTextColumn Header="Ixx" Binding="{Binding Ixx}" Width="90" />
+                            <DataGridTextColumn Header="Iyy" Binding="{Binding Iyy}" Width="90" />
+                            <DataGridTextColumn Header="Izz" Binding="{Binding Izz}" Width="90" />
+                            <DataGridTextColumn Header="Ixy" Binding="{Binding Ixy}" Width="90" />
+                            <DataGridTextColumn Header="Iyz" Binding="{Binding Iyz}" Width="90" />
+                            <DataGridTextColumn Header="Izx" Binding="{Binding Izx}" Width="90" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Border>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
